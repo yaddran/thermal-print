@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.eol": "\n",
+		"editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "files.insertFinalNewline": true
+    }
+}

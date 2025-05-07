@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Phomemo Q30</title>
+    <link rel="icon" type="image/png" href="index.png">
+</head>
+
+<body>
+    <h2 class="logo">Phomemo Q30&nbsp;&nbsp;<a href="https://phomemo.com/" target="_blank">phomemo.com</a> </h2>
+    <h4>-- print page --</h4>
+    <button onclick="handle.ble.open();">Connect</button>
+    <br /><br />
+
+    <div class="info">
+        <div>
+            <label><span>Address: </span>
+                <div id="mac"></div>
+            </label>
+            <label><span>Version: </span>
+                <div id="version"></div>
+            </label>
+            <label><span>Serial: </span>
+                <div id="serial"></div>
+            </label>
+            <label><span>Cover: </span>
+                <div id="cover"></div>
+            </label>
+            <label><span>Chip: </span>
+                <div id="chip"></div>
+            </label>
+            <label><span>Firmware: </span>
+                <div id="firmware"></div>
+            </label>
+            <label><span>Hot: </span>
+                <div id="hot"></div>
+            </label>
+        </div>
+        <div>
+            <label><span>Busy: </span>
+                <div id="busy"></div>
+            </label>
+            <label><span>Battery: </span>
+                <div id="battery"></div>
+            </label>
+            <label><span>Power off:</span>
+                <div id="power"></div>
+            </label>
+            <label><span>Label: </span>
+                <div id="label"></div>
+            </label>
+            <label><span>Paper: </span>
+                <div id="paper"></div>
+            </label>
+            <label><span>Width: </span>
+                <div>12mm / 96px</div>
+            </label>
+            <label><span>Density: </span>
+                <div>8px/mm</div>
+            </label>
+        </div>
+    </div>
+    <br />
+    <div class="label">
+        <div>Status messages:</div>
+    </div>
+    <div id="messages">
+        <div>Press connect button to connect to the printer...</div>
+    </div>
+
+    <br /><br />
+
+    <div class="label">
+        <div>Label length:&nbsp;</div>
+        <select onchange="config.label.length = parseInt(this.value, 10); handle.image.resize();">
+            <option value="22">22mm</option>
+            <option value="25">25mm</option>
+            <option value="30">30mm</option>
+            <option value="40">40mm</option>
+            <option value="50" selected>50mm</option>
+            <option value="70">70mm</option>
+        </select>
+    </div>
+    <div id="resolution">(400px x 96px)</div><br />
+
+    <div class="file" ondragover="event.preventDefault();" ondrop="event.preventDefault(); handle.image.drop(event);">
+        <canvas id="canvas" width="1" height="1"></canvas></div>
+    <br /><br />
+
+    <div class="center hidden" id="center">
+        <div class="preview"><canvas id="view" width="1" height="1"></canvas></div>
+        <div class="command">
+            <button id="printit" onclick="handle.printer.print();">Print</button>
+        </div>
+    </div>
+
+
+    <script src="config.js"></script>
+    <script src="ui.js"></script>
+    <script src="protocol.js"></script>
+    <script src="ble.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
