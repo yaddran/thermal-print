@@ -210,7 +210,6 @@ const ble = {
         }, config.ble.interval);
     },
     print: () => {
-        console.log(config.dots);
         let v = [27, 64];
         ble.buffer.push(new Uint8Array(v));
 
