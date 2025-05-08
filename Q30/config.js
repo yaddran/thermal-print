@@ -26,7 +26,7 @@ const config = {
         ch2: null,
         ch3: null,
         printer: 0,
-        interval: 12,
+        interval: 14,
         mtu: 200
     },
     log: {

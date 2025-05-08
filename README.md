@@ -28,9 +28,9 @@
 
  There is no official support nor documentation by Phomemo. All requests for information or additional application were politely declined with "not available at this time". Having this in mind, the project is reverse engineered protocol in between the mobile and the printer. Some of the commands and events are probably skipped or not available.
 
- If you encounter any issues look at the config.js and try adjusting "mtu" or "interval" parameters. These are BT options which can influence the reliability of the communication with the printer.
+ If you encounter any issues look at the config.js and try adjusting "mtu" or "interval" parameters. These are BT options which can influence the reliability of the communication with the printer. You can also enable logging and check the printer responses.
 
-### Future
+ ### Future
  
  The project is focused on Phomemo Q30, atm. Other thermal printers could be added. We do not own other devices but the protocol should be similar and the effort of adding other printers should not be as big as this initial work.
 

@@ -212,6 +212,7 @@ const ble = {
     print: () => {
         let v = [27, 64];
         ble.buffer.push(new Uint8Array(v));
+        ble.send();
 
         v = [29, 118, 48, 0];
         const width = config.label.width;
@@ -220,18 +221,17 @@ const ble = {
         v.push(Math.trunc(width / 256));
         v.push(length % 256);
         v.push(Math.trunc(length / 256));
-        ble.buffer.push(new Uint8Array(v));
-
-        v = [];
         for (let i = 0; i < config.dots.length; i++) {
             v.push(config.dots[i]);
             if (v.length >= config.ble.mtu) {
                 ble.buffer.push(new Uint8Array(v));
+                ble.send();
                 v = [];
             }
         }
-        if (v.length > 0)
+        if (v.length > 0) {
             ble.buffer.push(new Uint8Array(v));
-        ble.send();
+            ble.send();
+        }
     }
 };
