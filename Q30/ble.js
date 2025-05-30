@@ -1,6 +1,7 @@
 const ble = {
     buffer: [],
     timer: null,
+    printing: false,
     data2string: (data, s) => {
         if (!data) return '';
         let str = '';
@@ -77,7 +78,7 @@ const ble = {
     },
     notification: (data) => {
         if (!data) return;
-        if (data.length === 2 && data[0] === 0x01) protocol.in('!RESULT ' + data[1] + '\n');
+        if (data.length === 2 && data[0] === 0x01) { protocol.in('!RESULT ' + data[1] + '\n'); ble.result(); }
         if (data.length === 3 && data[0] === 0x02) {
             config.ble.printer = data[1];
             protocol.in('!PRINTER ' + config.ble.printer + '\n');
@@ -206,7 +207,7 @@ const ble = {
             const v = ble.buffer.shift();
             if (config.log.ble.write) console.log('[BLE >>>] ' + v.length + ' bytes', v.toString());
             config.ble.ch2.writeValueWithoutResponse(v).then(nop, nop);
-            ble.send();
+            if (!ble.printing) ble.send();
         }, config.ble.interval);
     },
     print: () => {
@@ -214,6 +215,7 @@ const ble = {
         ble.buffer.push(new Uint8Array(v));
         ble.send();
 
+        ble.printing = true;
         v = [29, 118, 48, 0];
         const width = config.label.width;
         const length = config.dots.length / config.label.width
@@ -225,13 +227,15 @@ const ble = {
             v.push(config.dots[i]);
             if (v.length >= config.ble.mtu) {
                 ble.buffer.push(new Uint8Array(v));
-                ble.send();
                 v = [];
             }
         }
-        if (v.length > 0) {
-            ble.buffer.push(new Uint8Array(v));
-            ble.send();
-        }
+        if (v.length > 0) ble.buffer.push(new Uint8Array(v));
+        ble.send();
+    },
+    result: () => {
+        if (!ble.printing) return;
+        if (ble.buffer.length === 0) ble.printing = false;
+        ble.send();
     }
 };
